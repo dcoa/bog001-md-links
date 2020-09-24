@@ -1,4 +1,36 @@
 {
   "name": "md-links",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "description": "MD-Links",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "eslint": "eslint --ext .js test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcoa/bog001-md-links.git"
+  },
+  "keywords": [
+    "md-links",
+    "library",
+    "module",
+    "node.js"
+  ],
+  "author": "Diana Catalina Olarte Abaunza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcoa/bog001-md-links/issues"
+  },
+  "homepage": "https://github.com/dcoa/bog001-md-links#readme",
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "marked": "^1.1.1"
+  }
 }
