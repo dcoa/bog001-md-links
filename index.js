@@ -3,12 +3,14 @@ const getLinks = require('./lib/evFile.js');
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
     try {
-      resolve(getLinks(path))
+      let links = getLinks(path)
+      links.length > 0 ? resolve(links)
+      : (function(){throw new Error('No found links')}())
     } catch (e) {
       reject(e.message)
     }
   })
 };
 
-mdLinks('./README.md').then(console.log).catch(console.error)
+mdLinks('./').then(console.log).catch(console.error)
 module.exports = mdLinks;
