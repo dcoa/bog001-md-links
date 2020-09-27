@@ -1,4 +1,4 @@
-const getLinks = require('./lib/evFile.js');
+const getLinks = require('./lib/getLinks.js');
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
@@ -12,5 +12,5 @@ const mdLinks = (path, options) => {
   })
 };
 
-mdLinks('./').then(console.log).catch(console.error)
+//mdLinks('../').then(console.log).catch(console.error)
 module.exports = mdLinks;
