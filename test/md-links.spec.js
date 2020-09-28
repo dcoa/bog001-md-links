@@ -59,18 +59,3 @@ describe('mdLinks', () => {
      return expect(mdLinks(noLinks)).rejects.toBe(errorMessage);
   });
 });
-
-/*describe('evPathType', () => {
-
-  it('should return the path to the md file', () => {
-    const absolutePath = '/Users/usuario/Desktop/progbasic/Laboratoria/bog001-md-links/README.md'
-    expect(evFile.evPathType()).toBe(absolutePath);
-  });
-  it('should return no es', () => {
-    expect(evFile.evPathType('./index.js')).toBe("We haven't identified a markdown file.");
-  });
-  it('should return the directory path relative to cwd', () => {
-    const relativePath = './'
-    expect(evFile.evPathType('./')).toBe(relativePath);
-  });
-});*/

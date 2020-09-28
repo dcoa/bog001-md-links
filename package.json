@@ -31,6 +31,9 @@
     "jest": "^26.4.2"
   },
   "dependencies": {
-    "marked": "^1.1.1"
+    "httpreq": "^0.4.24",
+    "marked": "^1.1.1",
+    "node-fetch": "^2.6.1",
+    "simple-get": "^4.0.0"
   }
 }
