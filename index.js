@@ -1,5 +1,6 @@
 const getLinks = require('./lib/getLinks.js');
 const validateLinks = require('./lib/validateLinks.js');
+const path = require('path');
 
 const mdLinks = (path, options = {}) => {
   return new Promise((resolve, reject) => {
@@ -19,8 +20,8 @@ const mdLinks = (path, options = {}) => {
   })
 };
 
-mdLinks('./_mockMDFile_', {validate: true})
+/*mdLinks('./', {validate: true})
 .then(console.log)
-.catch(console.error)
+.catch(console.error)*/
 
 module.exports = mdLinks;
