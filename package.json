@@ -1,7 +1,7 @@
 {
   "name": "md-links",
   "version": "0.1.0",
-  "description": "MD-Links",
+  "description": "Found links in a markdown file and validate the status",
   "main": "index.js",
   "directories": {
     "test": "test"
