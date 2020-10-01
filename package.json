@@ -1,5 +1,5 @@
 {
-  "name": "md-links-xd",
+  "name": "md-links",
   "version": "1.0.0",
   "description": "Found links in a markdown file and validate the status",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "eslint": "eslint --ext .js test/"
   },
   "bin": {
-    "mdLinks": "./cli.js"
+    "md-links": "./cli.js"
   },
   "repository": {
     "type": "git",
