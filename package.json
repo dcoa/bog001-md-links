@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "md-links-xd",
   "version": "0.1.0",
   "description": "Found links in a markdown file and validate the status",
   "main": "index.js",
@@ -10,6 +10,7 @@
     "test": "jest --coverage",
     "eslint": "eslint --ext .js test/"
   },
+  "bin" : { "mdLinks" : "./cli.js" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dcoa/bog001-md-links.git"
