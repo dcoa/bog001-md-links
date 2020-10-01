@@ -1,6 +1,6 @@
 const path = require('path');
 const mdLinks = require('../');
-const getLinks = require('../lib/getLinks.js');
+const statsLinks = require('../lib/stats.js');
 
 describe('mdLinks', () => {
 
@@ -95,6 +95,33 @@ describe('mdLinks', () => {
 
     return mdLinks(pathRelative, {validate: true}).then(data => {
       expect(data).toContainEqual(linkValidated);
+    });
+  });
+});
+
+describe('statsLinks', () => {
+
+  it('should return an array with total and unique [3, 3]', () => {
+
+    const pathRelative = './_mockMDFile_/';
+    const arrayMockLinks = [3, 3];
+
+    return mdLinks(pathRelative).then( data => {
+      const arr = statsLinks(data)
+
+      expect(arr).toEqual(arrayMockLinks)
+    });
+  });
+
+  it('should return an array with total, unique, and broken [3, 3, 2]', () => {
+
+    const pathRelative = './_mockMDFile_/';
+    const arrayMockLinks = [3, 3, 2];
+    
+    return mdLinks(pathRelative, { validate: true }).then( data => {
+      const arr = statsLinks(data)
+
+      expect(arr).toEqual(arrayMockLinks)
     });
   });
 });
