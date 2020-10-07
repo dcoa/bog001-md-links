@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "eslint": "eslint --ext .js test/"
+    "eslint": "eslint --ext .js index.js cli.js lib/ test/"
   },
   "bin": {
     "md-links": "cli.js"
@@ -23,19 +23,22 @@
     "module",
     "node.js"
   ],
-  "author": "Diana Catalina Olarte Abaunza",
+  "author": "Diana Catalina Olarte Abaunza dcoa@live.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dcoa/bog001-md-links/issues"
   },
   "homepage": "https://github.com/dcoa/bog001-md-links#readme",
   "devDependencies": {
-    "eslint": "^7.9.0",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "jest": "^26.4.2"
   },
   "dependencies": {
     "chalk": "^4.1.0",
     "marked": "^1.1.1",
+    "minimist": "^1.2.5",
     "node-fetch": "^2.6.1"
   }
 }

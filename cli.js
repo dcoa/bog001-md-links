@@ -1,84 +1,70 @@
 #!/usr/bin/env node
 
-//that line (↑)is an instance of a shebang line and describe node like a
-//interpreter to pass the file for execution
+// that line (↑)is an instance of a shebang line and describe node like a
+// interpreter to pass the file for execution
+const chalk = require('chalk');
+const argv = require('minimist')(process.argv.slice(2));
 const statsLinks = require('./lib/stats.js');
 const mdLinks = require('./index.js');
-const chalk = require('chalk');
 
-const param = process.argv;
-const url = param[2];
-const validate = param.includes('--validate');
-const stats = param.includes('--stats');
+const path = argv._[0];
 
-if (!validate && !stats) {
+if (!argv.validate && !argv.stats) {
+  mdLinks(path)
+    .then((allLinks) => {
+      const strLinks = allLinks.map((link) => {
+        const pathLink = chalk.blueBright(link.path);
+        const text = chalk.cyan(link.text.substring(0, 49));
 
-  mdLinks(url)
-  .then(allLinks => {
+        return `${pathLink}  ${link.href}  ${text}
+              `;
+      });
 
-    const strLinks = allLinks.map(link => {
-
-      let path = chalk.blueBright(link.path);
-      let text = chalk.cyan(link.text.substring(0,49));
-
-      return `${path}  ${link.href}  ${text}`
-    });
-
-    console.log('\n' + strLinks.join('\n') + '\n');
-
-  }).catch(e => console.log(chalk.bgRedBright(e)));
+      console.log(`\n${strLinks.join('\n')}\n`);
+    }).catch((e) => console.log(chalk.bgRedBright(e)));
 }
 
-if (validate && !stats) {
+if (argv.validate && !argv.stats) {
+  mdLinks(path, { validate: true })
+    .then((allLinks) => {
+      const strLinks = allLinks.map((link) => {
+        const pathLink = chalk.blueBright(link.path);
+        const text = chalk.cyan(link.text.substring(0, 49));
 
-  mdLinks(url, {validate: true})
-  .then(allLinks => {
+        const status = (link.response === 'OK')
+          ? chalk.bgGreenBright(link.statusCode)
+          : chalk.bgRedBright(link.statusCode);
 
-    const strLinks = allLinks.map(link => {
+        const response = (link.response === 'OK')
+          ? chalk.green(link.response) : chalk.red(link.response);
 
-      let path = chalk.blueBright(link.path);
-      let text = chalk.cyan(link.text.substring(0,49));
+        return `${pathLink}  ${link.href}  ${response}  ${status}  ${text}
+              `;
+      });
 
-      let status = (link.response === 'OK')?
-        chalk.bgGreenBright(link.statusCode)
-        : chalk.bgRedBright(link.statusCode);
-
-      let response = (link.response === 'OK')?
-        chalk.green(link.response) : chalk.red(link.response);
-
-      return `${path}  ${link.href}  ${response}  ${status}  ${text}`
-    });
-
-    console.log('\n' + strLinks.join('\n') + '\n');
-
-  }).catch(e => console.log(chalk.bgRedBright(e)));
+      console.log(`\n${strLinks.join('\n')}\n`);
+    }).catch((e) => console.log(chalk.bgRedBright(e)));
 }
 
-if (!validate && stats) {
+if (!argv.validate && argv.stats) {
+  mdLinks(path)
+    .then((allLinks) => {
+      const linkStats = statsLinks(allLinks);
+      const total = chalk.bold.yellow(`Total:${linkStats[0]}`);
+      const unique = chalk.bold.cyan(`Unique:${linkStats[1]}`);
 
-  mdLinks(url)
-  .then(allLinks => {
-
-    let linkStats = statsLinks(allLinks);
-    let total = chalk.bold.yellow('Total:' + linkStats[0]);
-    let unique = chalk.bold.cyan('Unique:' + linkStats[1]);
-
-    console.log('\n' + total + '\n'+ unique + '\n');
-
-  }).catch(e => console.log(chalk.bgRedBright(e)));
+      console.log(`\n${total}\n${unique}\n`);
+    }).catch((e) => console.log(chalk.bgRedBright(e)));
 }
 
-if (validate && stats) {
+if (argv.validate && argv.stats) {
+  mdLinks(path, { validate: true })
+    .then((allLinks) => {
+      const linkStats = statsLinks(allLinks);
+      const total = chalk.bold.yellow(`Total:${linkStats[0]}`);
+      const unique = chalk.bold.cyan(`Unique:${linkStats[1]}`);
+      const broken = chalk.bold.red(`Broken:${linkStats[2]}`);
 
-  mdLinks(url, {validate: true})
-  .then(allLinks => {
-    
-    let linkStats = statsLinks(allLinks);
-    let total = chalk.bold.yellow('Total:' + linkStats[0]);
-    let unique = chalk.bold.cyan('Unique:' + linkStats[1]);
-    let broken = chalk.bold.red('Broken:' + linkStats[2]);
-
-    console.log('\n' + total + '\n'+ unique + '\n' + broken + '\n');
-
-  }).catch(e => console.log(chalk.bgRedBright(e)));
+      console.log(`\n${total}\n${unique}\n${broken}\n`);
+    }).catch((e) => console.log(chalk.bgRedBright(e)));
 }
