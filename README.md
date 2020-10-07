@@ -5,8 +5,8 @@
 * [1. Description](#1-description)
 * [2. Install](#2-install)
 * [3. Usage](#3-usage)
-  * [Module](module)
-  * [CLI](cli)
+  * [Module](#module)
+  * [CLI](#cli)
 ***
 
 ## 1. Description
@@ -23,7 +23,7 @@ $ npm install -g dcoa/bog001-md-links
 ```
 $ npm install dcoa/bog001-md-links
 ```
-## 3. Usege
+## 3. Usage
 
 ### Module
 ```js
