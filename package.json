@@ -1,6 +1,6 @@
 {
   "name": "@dcoa/md-links",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Found links in a markdown file and validate the status",
   "main": "index.js",
   "directories": {
