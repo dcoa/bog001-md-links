@@ -9,9 +9,16 @@ const mdLinks = require('./index.js');
 
 const path = argv._[0];
 
-if (!argv.validate && !argv.stats) {
+if (!argv.validate) {
   mdLinks(path)
     .then((allLinks) => {
+      if (argv.stats) { 
+        const linkStats = statsLinks(allLinks);
+        const total = chalk.bold.yellow(`Total:${linkStats[0]}`);
+        const unique = chalk.bold.cyan(`Unique:${linkStats[1]}`);
+  
+        console.log(`\n${total}\n${unique}\n`);
+      } else {
       const strLinks = allLinks.map((link) => {
         const pathLink = chalk.blueBright(link.path);
         const text = chalk.cyan(link.text.substring(0, 49));
@@ -21,12 +28,22 @@ if (!argv.validate && !argv.stats) {
       });
 
       console.log(`\n${strLinks.join('\n')}\n`);
+    }
     }).catch((e) => console.log(chalk.bgRedBright(e)));
 }
 
-if (argv.validate && !argv.stats) {
+if (argv.validate) {
   mdLinks(path, { validate: true })
     .then((allLinks) => {
+      if (argv.stats) { 
+        const linkStats = statsLinks(allLinks);
+        const total = chalk.bold.yellow(`Total:${linkStats[0]}`);
+        const unique = chalk.bold.cyan(`Unique:${linkStats[1]}`);
+        const broken = chalk.bold.red(`Broken:${linkStats[2]}`);
+  
+        console.log(`\n${total}\n${unique}\n${broken}\n`);
+
+      } else {
       const strLinks = allLinks.map((link) => {
         const pathLink = chalk.blueBright(link.path);
         const text = chalk.cyan(link.text.substring(0, 49));
@@ -43,28 +60,6 @@ if (argv.validate && !argv.stats) {
       });
 
       console.log(`\n${strLinks.join('\n')}\n`);
-    }).catch((e) => console.log(chalk.bgRedBright(e)));
-}
-
-if (!argv.validate && argv.stats) {
-  mdLinks(path)
-    .then((allLinks) => {
-      const linkStats = statsLinks(allLinks);
-      const total = chalk.bold.yellow(`Total:${linkStats[0]}`);
-      const unique = chalk.bold.cyan(`Unique:${linkStats[1]}`);
-
-      console.log(`\n${total}\n${unique}\n`);
-    }).catch((e) => console.log(chalk.bgRedBright(e)));
-}
-
-if (argv.validate && argv.stats) {
-  mdLinks(path, { validate: true })
-    .then((allLinks) => {
-      const linkStats = statsLinks(allLinks);
-      const total = chalk.bold.yellow(`Total:${linkStats[0]}`);
-      const unique = chalk.bold.cyan(`Unique:${linkStats[1]}`);
-      const broken = chalk.bold.red(`Broken:${linkStats[2]}`);
-
-      console.log(`\n${total}\n${unique}\n${broken}\n`);
+    }
     }).catch((e) => console.log(chalk.bgRedBright(e)));
 }
